@@ -55,10 +55,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel twine
           pip install bs4
-      - name: text message
+      - name: 发送到企微群
         uses: foxundermoon/feishu-action@v2
         with:
           url: ${{ secrets.FEISHU_BOT_WEBHOOK_URL }}
           msg_type: text
           content: |
-            ${{env.FILE_TEXT}}
+              ${{env.FILE_TEXT}}

@@ -75,4 +75,4 @@ jobs:
           msg_type: text
           content: |
             text: |
-              ${{env.FILE_TEXT}}
+              ${{ env.FILE_TEXT }}

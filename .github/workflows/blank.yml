@@ -39,12 +39,39 @@ jobs:
           type: text
           at: all
           content: |
-            ${{env.FILE_TEXT}}                
+            ${{env.FILE_TEXT}}
+  bot2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout codes'
+        uses: foxundermoon/feishu-action@v2
+      - name: python env
+        uses: foxundermoon/feishu-action@v2
+        with:
+          python-version: 3.7
+      # 安装依赖
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel twine
+          pip install bs4
+      - name: 'Get DataSource'
+        run: curl https://news.topurl.cn > ./result.html
+      - name: 'Get Info'
+        run: python ./getInfo.py
+      - name: 'Get Date'
+        run: |
+          echo "REPORT_DATE=$(TZ=':Asia/Shanghai' date '+%Y-%m-%d %T')" >> $GITHUB_ENV
+          echo "TODAY_DATE=$(TZ=':Asia/Shanghai' date +'%Y-%m-%d')" >> $GITHUB_ENV
+      - name: 'Get TEXT'
+        run: |
+          echo 'FILE_TEXT<<EOF' >> $GITHUB_ENV
+          cat ./result.txt >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
       - name: '发送到飞书群'
         uses: fifsky/dingtalk-action@master
         with:
           url: ${{ secrets.LARK_WEBHOOK}}
           type: text
-          at: all
           content: |
             ${{env.FILE_TEXT}}

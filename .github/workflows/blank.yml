@@ -59,7 +59,7 @@ jobs:
         uses: foxundermoon/feishu-action@v2
         with:
           url: ${{ secrets.FEISHU_BOT_WEBHOOK_URL }}
-          msg_type: text
+          msg_type: post
           content: |
-            text: |
+            post:
               ${{env.FILE_TEXT}}

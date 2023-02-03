@@ -1,7 +1,7 @@
 on:
   push:
   schedule:
-    - cron: "38 22 * * *" #早上6点45左右推送
+    - cron: "0 0 10 * *" #早上6点45左右推送
     
 jobs:
   bot:
@@ -46,7 +46,7 @@ jobs:
 #           content_type: text/html
 
           
-      - name: '发送到钉钉群'
+      - name: '发送到企微群'
         uses: fifsky/dingtalk-action@master
         with:
           url: ${{ secrets.DINGTALK_WEBHOOK}}

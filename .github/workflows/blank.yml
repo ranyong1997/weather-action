@@ -35,7 +35,7 @@ jobs:
       - name: '发送到企微群'
         uses: fifsky/dingtalk-action@master
         with:
-          url: ${{ secrets.WECHAT_WEBHOOK}}
+          url: ${{ secrets.WECHAT_WEBHOOK }}
           type: text
           at: all
           content: |

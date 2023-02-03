@@ -55,16 +55,24 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel twine
           pip install bs4
+      - name: 'Get DataSource'
+        run: curl https://news.topurl.cn > ./result.html
+      - name: 'Get Info'
+        run: python ./getInfo.py
+      - name: 'Get Date'
+        run: |
+          echo "REPORT_DATE=$(TZ=':Asia/Shanghai' date '+%Y-%m-%d %T')" >> $GITHUB_ENV
+          echo "TODAY_DATE=$(TZ=':Asia/Shanghai' date +'%Y-%m-%d')" >> $GITHUB_ENV
+      - name: 'Get TEXT'
+        run: |
+          echo 'FILE_TEXT<<EOF' >> $GITHUB_ENV
+          cat ./result.txt >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
       - name: 发送到飞书群
         uses: foxundermoon/feishu-action@v2
         with:
           url: ${{ secrets.FEISHU_BOT_WEBHOOK_URL }}
-          msg_type: post
+          msg_type: text
           content: |
-            post:
-              zh_cn:
-                        title: 我是一个标题
-                        content:
-                        - - tag: text
-                            un_escape: true
-                            text: ${{env.FILE_TEXT}}
+            text: |
+              ${{env.FILE_TEXT}}

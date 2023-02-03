@@ -27,11 +27,11 @@ for a in soup.select('.history-wrap > .line a'):
 
 formatText += history + '\n'
 
-# # 时间进度条
-# progress = '时间进度条: ' + soup.select('.progress-bar')[0].get_text()
-# progress_text = soup.select('.line')[-1].get_text()
-# formatText += progress + '\n'
-# formatText += progress_text + '\n'
-# filename = 'result.txt'
-# with open(filename, 'w') as file:
-#     file.write(formatText)
+# 时间进度条
+progress = '时间进度条: ' + soup.select('.progress-bar')[0].get_text()
+progress_text = soup.select('.line')[-1].get_text()
+formatText += progress + '\n'
+formatText += progress_text + '\n'
+filename = 'result.txt'
+with open(filename, 'w') as file:
+    file.write(formatText)

@@ -61,5 +61,4 @@ jobs:
           url: ${{ secrets.FEISHU_BOT_WEBHOOK_URL }}
           msg_type: text
           content: |
-            text: |
-              ${{env.FILE_TEXT}}
+            ${{env.FILE_TEXT}}

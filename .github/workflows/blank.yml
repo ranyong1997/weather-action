@@ -62,9 +62,4 @@ jobs:
           msg_type: text
           content: |
             text: |
-              hahahah
-              from github action test
-              repository: ${{ github.repository }}
-              committer: ${{ github.actor }}
-              compare: ${{ github.event.compare }}
-              job status: ${{ job.status }}
+              ${{env.FILE_TEXT}}

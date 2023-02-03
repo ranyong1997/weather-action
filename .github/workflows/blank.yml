@@ -41,16 +41,31 @@ jobs:
           content: |
             ${{env.FILE_TEXT}}
   bot2:
-    - name: text message
-      uses: foxundermoon/feishu-action@v2
-      with:
-        url: ${{ secrets.FEISHU_BOT_WEBHOOK_URL }}
-        msg_type: text
-        content: |
-          text: |
-            hahahah
-            from github action test
-            repository: ${{ github.repository }}
-            committer: ${{ github.actor }}
-            compare: ${{ github.event.compare }}
-            job status: ${{ job.status }}
+    bot:
+      runs-on: ubuntu-latest
+      steps:
+        - name: 'Checkout codes'
+          uses: actions/checkout@v2
+        - name: python env
+          uses: actions/setup-python@v1
+          with:
+            python-version: 3.7
+        # 安装依赖
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install setuptools wheel twine
+            pip install bs4
+        - name: text message
+          uses: foxundermoon/feishu-action@v2
+          with:
+            url: ${{ secrets.FEISHU_BOT_WEBHOOK_URL }}
+            msg_type: text
+            content: |
+              text: |
+                hahahah
+                from github action test
+                repository: ${{ github.repository }}
+                committer: ${{ github.actor }}
+                compare: ${{ github.event.compare }}
+                job status: ${{ job.status }}
